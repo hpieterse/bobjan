@@ -2,12 +2,13 @@ import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { SoundService } from './sound.service';
 import { GameStateService } from './game-state.service';
 import { GamePosition } from '../models/game-position.enum';
-import { Renderer2 } from '@angular/core';
+import { Renderer2, RendererFactory2 } from '@angular/core';
 
 describe('SoundServiceService', () => {
   let gameStateServiceMock;
   let subscription;
   let service: SoundService;
+  let renderedMock: Renderer2;
 
   beforeEach((() => {
 
@@ -21,6 +22,7 @@ describe('SoundServiceService', () => {
     };
     gameStateServiceMock.subscribeToStateChanges.mockReturnValueOnce(subscription);
 
+    renderedMock = { createElement: jest.fn() } as any;
     TestBed.configureTestingModule({
       providers: [
         {
@@ -28,9 +30,9 @@ describe('SoundServiceService', () => {
           useValue: gameStateServiceMock
         },
         {
-          provide: Renderer2,
+          provide: RendererFactory2,
           useValue: {
-            createElement: jest.fn()
+            createRenderer: () => renderedMock
           }
         }
       ]
@@ -64,8 +66,7 @@ describe('SoundServiceService', () => {
         play: jest.fn()
       } as any;
 
-      const renderer = TestBed.get(Renderer2);
-      (renderer.createElement as jest.Mock).mockReturnValueOnce(audio);
+      (renderedMock.createElement as jest.Mock).mockReturnValueOnce(audio);
 
       // act
       gameStateServiceMock.subscribeToStateChanges.mock.calls[0][0]({ nextState: { position } });
@@ -81,8 +82,7 @@ describe('SoundServiceService', () => {
       play: jest.fn()
     } as any;
 
-    const renderer = TestBed.get(Renderer2);
-    (renderer.createElement as jest.Mock).mockReturnValueOnce(audio);
+    (renderedMock.createElement as jest.Mock).mockReturnValueOnce(audio);
 
     // act
     let done = false;

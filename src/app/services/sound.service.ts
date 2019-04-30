@@ -1,5 +1,5 @@
 
-import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
+import { Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
 import { GameStateService } from './game-state.service';
 import { ISubscription } from '../models/subscription.interface';
 import { INextValue } from '../models/next-value.interface';
@@ -12,8 +12,10 @@ import { GamePosition } from '../models/game-position.enum';
 export class SoundService implements OnDestroy {
 
   private subscription: ISubscription;
-  constructor(gameStateService: GameStateService, private rendered: Renderer2) {
+  private rendered: Renderer2;
+  constructor(gameStateService: GameStateService, rendererFactory: RendererFactory2) {
     this.subscription = gameStateService.subscribeToStateChanges(this.handleStateChange);
+    this.rendered = rendererFactory.createRenderer(null, null);
   }
 
   private handleStateChange = async (nextState: INextValue<GameState>): Promise<void> => {
