@@ -5,6 +5,7 @@ import { GameStateService } from 'src/app/services/game-state.service';
 import { GameState } from 'src/app/models/game-state';
 import { GamePosition } from 'src/app/models/game-position.enum';
 import { INextValue } from 'src/app/models/next-value.interface';
+import { SoundService } from 'src/app/services/sound.service';
 
 describe('GameScreenComponent', () => {
   let component: GameScreenComponent;
@@ -12,7 +13,7 @@ describe('GameScreenComponent', () => {
   let gameStateServiceMock;
   let subscription;
   const currentGameState = new GameState();
-  beforeEach(async(() => {
+  beforeEach((() => {
 
     gameStateServiceMock = {
       subscribeToStateChanges: jest.fn(),
@@ -32,6 +33,10 @@ describe('GameScreenComponent', () => {
         {
           provide: GameStateService,
           useValue: gameStateServiceMock
+        },
+        {
+          provide: SoundService,
+          useValue: {}
         }
       ],
       declarations: [GameScreenComponent]

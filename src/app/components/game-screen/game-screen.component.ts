@@ -4,6 +4,7 @@ import { GamePosition } from 'src/app/models/game-position.enum';
 import { GameState } from 'src/app/models/game-state';
 import { ISubscription } from 'src/app/models/subscription.interface';
 import { INextValue } from 'src/app/models/next-value.interface';
+import { SoundService } from 'src/app/services/sound.service';
 
 @Component({
   selector: 'app-game-screen',
@@ -16,7 +17,7 @@ export class GameScreenComponent implements OnDestroy {
   public gameState: GameState;
   public changingState = false;
 
-  constructor(private gameStateService: GameStateService) {
+  constructor(private gameStateService: GameStateService, _: SoundService) {
     this.subscription = this.gameStateService.subscribeToStateChanges(this.handleStateChanges);
     this.gameState = this.gameStateService.currentState;
   }
