@@ -34,9 +34,6 @@ export class SoundService implements OnDestroy {
       case GamePosition.top:
         await this.playSound('assets/theme_end.mp3');
         break;
-      case GamePosition.bottom:
-        await this.playSound('assets/theme_enter.mp3');
-        break;
     }
   }
 

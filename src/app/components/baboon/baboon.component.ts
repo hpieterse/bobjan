@@ -11,8 +11,8 @@ import { INextValue } from 'src/app/models/next-value.interface';
   styleUrls: ['./baboon.component.scss']
 })
 export class BaboonComponent implements OnDestroy, OnInit {
-  private _bpm = 60;
-  private _quarterNoteMs = (this._bpm / 60) * 1000 / 4;
+  private _bpm = 132;
+  private _eightNoteMs = Math.round((60 * 1000) / (this._bpm * 2));
   private subscription: ISubscription;
 
   public x = 0;
@@ -55,7 +55,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
     }
 
     await this.animateJump({
-      startX, startY, startA, targetX, targetY, targetA, animationLength: this._quarterNoteMs
+      startX, startY, startA, targetX, targetY, targetA, animationLength: this._eightNoteMs
     });
 
     if (position === GamePosition.top) {
@@ -67,7 +67,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
         targetX: targetX + this.baboon.nativeElement.clientWidth * 2,
         targetY,
         targetA,
-        animationLength: this._quarterNoteMs
+        animationLength: this._eightNoteMs
       });
       const newState = new GameState();
       newState.position = GamePosition.bottom;
@@ -93,6 +93,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
     const peak = this.y + this.baboon.nativeElement.clientHeight / 4;
     await this.sleepQuarterNote();
     await this.sleepQuarterNote();
+    await this.sleepQuarterNote();
     await this.animateJump({
       startX: standX,
       startY: standY,
@@ -101,7 +102,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
       targetY: posOneY,
       targetA: posOneA,
       peakY: peak,
-      animationLength: this._quarterNoteMs
+      animationLength: this._eightNoteMs
     });
 
     for (let i = 0; i < 2; i++) {
@@ -115,7 +116,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
         targetY: posTwoY,
         targetA: posTwoA,
         peakY: peak,
-        animationLength: this._quarterNoteMs
+        animationLength: this._eightNoteMs
       });
 
       await this.sleepQuarterNote();
@@ -128,7 +129,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
         targetY: posOneY,
         targetA: posOneA,
         peakY: peak,
-        animationLength: this._quarterNoteMs
+        animationLength: this._eightNoteMs
       });
     }
 
@@ -142,7 +143,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
       targetY: standY,
       targetA: standA,
       peakY: peak,
-      animationLength: this._quarterNoteMs
+      animationLength: this._eightNoteMs
     });
 
     await this.sleepQuarterNote();
@@ -263,7 +264,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
     return new Promise<void>((o) => {
       setTimeout(() => {
         o();
-      }, this._quarterNoteMs);
+      }, this._eightNoteMs);
     });
   }
 }

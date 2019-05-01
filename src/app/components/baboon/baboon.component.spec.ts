@@ -11,7 +11,7 @@ describe('BaboonComponent', () => {
   let gameStateServiceMock: any;
   let subscription: any;
   const currentGameState = new GameState();
-  const quarterNoteMs = 250;
+  const eightNoteMs = Math.round((60 * 1000) / (132 * 2));
 
   beforeEach(async(() => {
     gameStateServiceMock = {
@@ -111,7 +111,7 @@ describe('BaboonComponent', () => {
     expect(component.angle).toEqual(0);
 
     // middle
-    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + quarterNoteMs / 2);
+    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + eightNoteMs / 2);
     expect(component.x).toEqual(-75);
     expect(component.y).toEqual(60);
     expect(component.angle).toEqual(0);
@@ -120,7 +120,7 @@ describe('BaboonComponent', () => {
     expect(done).toBeFalsy();
 
     // finish
-    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + quarterNoteMs);
+    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + eightNoteMs);
     expect(component.x).toEqual(-50);
     expect(component.y).toEqual(0);
     expect(component.angle).toEqual(0);
@@ -153,7 +153,7 @@ describe('BaboonComponent', () => {
     expect(component.angle).toEqual(0);
 
     // middle
-    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + quarterNoteMs / 2);
+    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + eightNoteMs / 2);
     expect(component.x).toEqual(0);
     expect(component.y).toEqual(60);
     expect(component.angle).toEqual(45 / 2);
@@ -162,7 +162,7 @@ describe('BaboonComponent', () => {
     expect(done).toBeFalsy();
 
     // finish
-    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + quarterNoteMs);
+    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + eightNoteMs);
     expect(component.x).toEqual(50);
     expect(component.y).toEqual(50);
     expect(component.angle).toEqual(45);
@@ -205,7 +205,7 @@ describe('BaboonComponent', () => {
       expect(component.angle).toEqual(45);
 
       // middle
-      frameMethod(1000 + quarterNoteMs / 2);
+      frameMethod(1000 + eightNoteMs / 2);
       expect(component.x).toEqual(startX + delta / 2);
       expect(component.y).toEqual(startY + peakDelta);
       expect(component.angle).toEqual(45);
@@ -214,7 +214,7 @@ describe('BaboonComponent', () => {
       expect(done).toBeFalsy();
 
       // finish
-      frameMethod(1000 + quarterNoteMs);
+      frameMethod(1000 + eightNoteMs);
 
       startX += delta;
       startY += delta;
@@ -256,13 +256,13 @@ describe('BaboonComponent', () => {
     expect(component.angle).toEqual(45);
 
     // middle jump
-    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + quarterNoteMs / 2);
+    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + eightNoteMs / 2);
     expect(component.x).toEqual(400);
     expect(component.y).toEqual(410);
     expect(component.angle).toEqual(45 / 2);
 
     // finish jump
-    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + quarterNoteMs);
+    (window.requestAnimationFrame as jest.Mock).mock.calls[0][0](1000 + eightNoteMs);
     expect(component.x).toEqual(450);
     expect(component.y).toEqual(450);
     expect(component.angle).toEqual(0);
@@ -276,7 +276,7 @@ describe('BaboonComponent', () => {
       expect(component.y).toEqual(450);
       expect(component.angle).toEqual(0);
 
-      frameMethod(1000 + quarterNoteMs);
+      frameMethod(1000 + eightNoteMs);
       expect(component.x).toEqual(475);
       expect(component.y).toEqual(460);
       expect(component.angle).toEqual(25);
@@ -290,7 +290,7 @@ describe('BaboonComponent', () => {
       expect(component.y).toEqual(460);
       expect(component.angle).toEqual(25);
 
-      frameMethod(1000 + quarterNoteMs);
+      frameMethod(1000 + eightNoteMs);
       expect(component.x).toEqual(450);
       expect(component.y).toEqual(460);
       expect(component.angle).toEqual(-25);
@@ -303,7 +303,7 @@ describe('BaboonComponent', () => {
       expect(component.y).toEqual(460);
       expect(component.angle).toEqual(-25);
 
-      frameMethod(1000 + quarterNoteMs);
+      frameMethod(1000 + eightNoteMs);
       expect(component.x).toEqual(475);
       expect(component.y).toEqual(460);
       expect(component.angle).toEqual(25);
@@ -317,7 +317,7 @@ describe('BaboonComponent', () => {
       expect(component.y).toEqual(460);
       expect(component.angle).toEqual(25);
 
-      frameMethod(1000 + quarterNoteMs);
+      frameMethod(1000 + eightNoteMs);
       expect(component.x).toEqual(450);
       expect(component.y).toEqual(450);
       expect(component.angle).toEqual(0);
@@ -331,34 +331,34 @@ describe('BaboonComponent', () => {
       expect(component.y).toEqual(450);
       expect(component.angle).toEqual(0);
 
-      frameMethod(1000 + quarterNoteMs);
+      frameMethod(1000 + eightNoteMs);
       expect(component.x).toEqual(550);
       expect(component.y).toEqual(450);
       expect(component.angle).toEqual(0);
     };
 
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 3);
     expect(component.endAnimation).toBeTruthy();
     testDanceMove1();
 
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 2);
     testDanceMove2A();
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 2);
     testDanceMove2B();
 
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 2);
     testDanceMove2A();
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 2);
     testDanceMove2B();
 
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 2);
     testDanceMove2();
 
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 2);
     expect(component.endAnimation).toBeFalsy();
     testEndJump();
 
-    tick(quarterNoteMs * 2);
+    tick(eightNoteMs * 2);
     expect(gameStateServiceMock.changeGameState.mock.calls[0].length).toBe(1);
     expect(gameStateServiceMock.changeGameState.mock.calls[0][0].position).toBe(GamePosition.bottom);
 

@@ -17,10 +17,11 @@ export class GameStateService {
   }
 
   public async changeGameState(nextState: GameState): Promise<void> {
+    const oldState = this._currentState;
+    this._currentState = nextState;
     await this._stateObservable.next({
-      currentState: this.currentState,
+      currentState: oldState,
       nextState
     });
-    this._currentState = nextState;
   }
 }

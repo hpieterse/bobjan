@@ -57,7 +57,6 @@ describe('SoundServiceService', () => {
     [GamePosition.pos3, 'assets/theme_verse2.mp3'],
     [GamePosition.pos4, 'assets/theme_chorus.mp3'],
     [GamePosition.top, 'assets/theme_end.mp3'],
-    [GamePosition.bottom, 'assets/theme_enter.mp3']
   ])(
     'For %s should play %s',
     (position, fileName) => {

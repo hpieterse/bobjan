@@ -3,7 +3,7 @@ import { translate, rotate } from 'transformation-matrix'
 import { transformToString } from '../support/transform'
 
 context('Window', () => {
-  const quarterNoteMs = 250;
+  const eightsNoteMs = Math.round((60 * 1000) / (132 * 2));
 
   beforeEach(() => {
     cy.visit('')
@@ -26,18 +26,28 @@ context('Window', () => {
   });
 
   it('should have baboon at start position', () => {
-    cy.wait(quarterNoteMs);
+    cy.wait(eightsNoteMs);
     cy.get('.baboon').find('div').should(($el) => {
       expect($el).to.include.css('transform', 'matrix(1, 0, 0, 1, -85, 0)');
     });
   });
 
   it('should test whole animation', () => {
-    cy.wait(quarterNoteMs);
-    cy.get('.game-board').click();
-    cy.wait(quarterNoteMs);
-    cy.wait(quarterNoteMs);
+    const nextPosition = () => {
+      cy.get('.game-board').click();
+      cy.wait(eightsNoteMs);
+      cy.wait(eightsNoteMs);
+    };
 
+    const waitForAudio = () => {
+      cy.wait(eightsNoteMs * 6);
+      cy.wait(100);// lag before playing audio
+    }
+
+    cy.wait(eightsNoteMs);
+    nextPosition();
+
+    // pos 1
     cy.get('.baboon').find('div').should(($el) => {
       expect($el).to.include.css('transform',
         transformToString(
@@ -45,6 +55,47 @@ context('Window', () => {
           rotate(-Math.PI / 4)
         ));
     });
+    waitForAudio();
 
+    nextPosition();
+    // pos 2
+    cy.get('.baboon').find('div').should(($el) => {
+      expect($el).to.include.css('transform',
+        transformToString(
+          translate(129, -129),
+          rotate(-Math.PI / 4)
+        ));
+    });
+    waitForAudio();
+
+    nextPosition();
+    // pos 3
+    cy.get('.baboon').find('div').should(($el) => {
+      expect($el).to.include.css('transform',
+        transformToString(
+          translate(236, -236),
+          rotate(-Math.PI / 4)
+        ));
+    });
+    waitForAudio();
+
+    nextPosition();
+    // pos 4
+    cy.get('.baboon').find('div').should(($el) => {
+      expect($el).to.include.css('transform',
+        transformToString(
+          translate(343, -343),
+          rotate(-Math.PI / 4)
+        ));
+    });
+    waitForAudio();
+
+    nextPosition();
+    // wait for top and end animation
+    cy.wait(eightsNoteMs * 24);
+    // back at bottom
+    cy.get('.baboon').find('div').should(($el) => {
+      expect($el).to.include.css('transform', 'matrix(1, 0, 0, 1, -85, 0)');
+    });
   });
 })

@@ -70,5 +70,6 @@ describe('GameStateService', () => {
     // assert
     expect(called).toBeFalsy();
     expect(stateChangeDone).toBeTruthy();
+    expect(service.currentState.position).toEqual(GamePosition.pos2);
   }));
 });
