@@ -6,6 +6,19 @@ $mountain-color: #709400;
 $mountain-end-width: 150px;
 $mountain-start-width: 100px;
 
+:host {
+    display: block;
+
+    &.portrait {
+        transform: rotate(90deg);
+
+        .game-board {
+            height: 100vw;
+            width: 100vh;
+        }
+    }
+}
+
 .game-board {
     width: 100vw;
     height: 100vh;
@@ -98,7 +111,7 @@ $mountain-start-width: 100px;
         .baboon {
             flex: 1;
             display: block;
-            padding: ($padding-top + $baboon-height) $mountain-end-width  $mountain-bottom-height $mountain-start-width;
+            padding: ($padding-top + $baboon-height) $mountain-end-width $mountain-bottom-height $mountain-start-width;
         }
     }
 }

@@ -32,6 +32,18 @@ context('Window', () => {
     });
   });
 
+  it('should force landscape view', () => {
+    cy.get('app-game-screen').should('have.class', 'landscape')
+    cy.viewport(619, 620);
+    cy.get('app-game-screen').should('have.class', 'portrait')
+    cy.get('app-game-screen').should(($el) => {
+      expect($el).to.include.css('transform', 
+      transformToString(
+        rotate(Math.PI / 2)
+      ));
+    });
+  });
+
   it('should test whole animation', () => {
     const nextPosition = () => {
       cy.get('.game-board').click();

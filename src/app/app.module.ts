@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameScreenComponent } from './components/game-screen/game-screen.component';
 import { BaboonComponent } from './components/baboon/baboon.component';
+import { LandscapeDirective } from './directives/landscape.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameScreenComponent,
-    BaboonComponent
+    BaboonComponent,
+    LandscapeDirective
   ],
   imports: [
     BrowserModule,
