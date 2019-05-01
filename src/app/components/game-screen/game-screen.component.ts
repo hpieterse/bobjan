@@ -1,9 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { GameStateService } from 'src/app/services/game-state.service';
 import { GamePosition } from 'src/app/models/game-position.enum';
 import { GameState } from 'src/app/models/game-state';
-import { ISubscription } from 'src/app/models/subscription.interface';
-import { INextValue } from 'src/app/models/next-value.interface';
 import { SoundService } from 'src/app/services/sound.service';
 
 @Component({

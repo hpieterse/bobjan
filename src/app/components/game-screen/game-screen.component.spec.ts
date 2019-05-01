@@ -1,10 +1,8 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-
+import {  ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { GameScreenComponent } from './game-screen.component';
 import { GameStateService } from 'src/app/services/game-state.service';
 import { GameState } from 'src/app/models/game-state';
 import { GamePosition } from 'src/app/models/game-position.enum';
-import { INextValue } from 'src/app/models/next-value.interface';
 import { SoundService } from 'src/app/services/sound.service';
 import { BaboonComponent } from '../baboon/baboon.component';
 

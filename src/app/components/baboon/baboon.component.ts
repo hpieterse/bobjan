@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { GameState } from 'src/app/models/game-state';
 import { GamePosition } from 'src/app/models/game-position.enum';
 import { ISubscription } from 'src/app/models/subscription.interface';
@@ -222,7 +222,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
       case GamePosition.pos4:
         const x = this.getFinalPositionX(position);
         const angle = this.getAngle(position);
-        return Math.asin(angle) * x;
+        return Math.round(Math.tan(angle) * x);
     }
   }
 
