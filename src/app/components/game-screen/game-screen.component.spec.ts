@@ -6,13 +6,15 @@ import { GameState } from 'src/app/models/game-state';
 import { GamePosition } from 'src/app/models/game-position.enum';
 import { INextValue } from 'src/app/models/next-value.interface';
 import { SoundService } from 'src/app/services/sound.service';
+import { BaboonComponent } from '../baboon/baboon.component';
 
 describe('GameScreenComponent', () => {
   let component: GameScreenComponent;
   let fixture: ComponentFixture<GameScreenComponent>;
-  let gameStateServiceMock;
-  let subscription;
+  let gameStateServiceMock: any;
+  let subscription: any;
   const currentGameState = new GameState();
+
   beforeEach((() => {
 
     gameStateServiceMock = {
@@ -39,7 +41,7 @@ describe('GameScreenComponent', () => {
           useValue: {}
         }
       ],
-      declarations: [GameScreenComponent]
+      declarations: [GameScreenComponent, BaboonComponent]
     })
       .compileComponents();
   }));
@@ -53,38 +55,6 @@ describe('GameScreenComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should subscribe to state changes', fakeAsync(() => {
-    // arrange
-    expect(gameStateServiceMock.subscribeToStateChanges.mock.calls.length).toBe(1);
-    expect(component.gameState).toEqual({ position: GamePosition.bottom });
-
-    // act
-    const newState = new GameState();
-    newState.position = GamePosition.pos1;
-    const newValue: INextValue<GameState> = {
-      currentState: null,
-      nextState: newState,
-    };
-
-    let done = false;
-    gameStateServiceMock.subscribeToStateChanges.mock.calls[0][0](newValue).then(() => {
-      done = true;
-    });
-    tick();
-
-    // assert
-    expect(done).toBeTruthy();
-    expect(component.gameState.position).toEqual(GamePosition.pos1);
-  }));
-
-  it('should unsubscribe on destroy', fakeAsync(() => {
-    // act
-    component.ngOnDestroy();
-
-    // assert
-    expect(subscription.unsubscribe.mock.calls.length).toEqual(1);
-  }));
 
   it('should increment position', fakeAsync(() => {
     // arrange

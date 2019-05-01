@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { GameScreenComponent } from './components/game-screen/game-screen.component';
 import { SoundService } from './services/sound.service';
+import { BaboonComponent } from './components/baboon/baboon.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -19,6 +20,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         GameScreenComponent,
+        BaboonComponent
       ],
     }).compileComponents();
   }));

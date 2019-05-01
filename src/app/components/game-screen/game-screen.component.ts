@@ -11,15 +11,11 @@ import { SoundService } from 'src/app/services/sound.service';
   templateUrl: './game-screen.component.html',
   styleUrls: ['./game-screen.component.scss']
 })
-export class GameScreenComponent implements OnDestroy {
-  private subscription: ISubscription;
-
-  public gameState: GameState;
+export class GameScreenComponent {
   public changingState = false;
 
   constructor(private gameStateService: GameStateService, _: SoundService) {
-    this.subscription = this.gameStateService.subscribeToStateChanges(this.handleStateChanges);
-    this.gameState = this.gameStateService.currentState;
+
   }
 
   public async incrementState(): Promise<void> {
@@ -36,13 +32,5 @@ export class GameScreenComponent implements OnDestroy {
     this.changingState = true;
     await this.gameStateService.changeGameState(nextState);
     this.changingState = false;
-  }
-
-  private handleStateChanges = async (value: INextValue<GameState>): Promise<void> => {
-    this.gameState = Object.assign({}, value.nextState);
-  }
-
-  public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

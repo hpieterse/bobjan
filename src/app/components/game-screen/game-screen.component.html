@@ -1,3 +1,25 @@
-<p>{{gameState | json}}</p>
-<p>{{changingState}}</p>
-<button (click)="incrementState();" [disabled]="changingState">Increment State</button>
+<div class="game-board" (click)="changingState == false? incrementState(): null;">
+    <div class="sky">
+        <div class="sky-1"></div>
+        <div class="sky-2"></div>
+        <div class="sky-3"></div>
+        <div class="sky-4"></div>
+    </div>
+
+    <div class="mountain">
+        <div class="bottom"></div>
+        <div class="slope">
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 1 1" version='1.1' preserveAspectRatio="none">
+                <polygon points='1,0 1,1 0,1' />
+            </svg>
+        </div>
+        <div class="top"></div>
+    </div>
+    <div class="baboon-container">
+        <div class="baboon">
+            <app-baboon></app-baboon>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,104 @@
+@import "../../../styles.scss";
+
+$padding-top: 40px;
+$mountain-bottom-height: 60px;
+$mountain-color: #709400;
+$mountain-end-width: 150px;
+$mountain-start-width: 100px;
+
+.game-board {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+    .sky {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+
+        div {
+            flex: 1;
+        }
+
+        .sky-1 {
+            background: #94dfff;
+        }
+
+        .sky-2 {
+            background: #66d1ff;
+        }
+
+        .sky-3 {
+            background: #4dc9ff;
+        }
+
+        .sky-4 {
+            background: #33c1ff;
+        }
+    }
+
+    .mountain {
+        position: absolute;
+    }
+
+    .mountain {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        div {
+            background: $mountain-color;
+        }
+
+        .bottom {
+            width: $mountain-start-width;
+            height: $mountain-bottom-height;
+            align-self: flex-end;
+        }
+
+        .slope {
+            svg {
+                width: 100%;
+                flex: 1;
+                margin-top: $baboon-height + $padding-top;
+
+                polygon {
+                    fill: $mountain-color;
+                }
+            }
+
+            &::after {
+                content: '';
+                height: $mountain-bottom-height;
+                display: block;
+                background: $mountain-color;
+                width: 100%;
+            }
+
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: none;
+        }
+
+        .top {
+            width: $mountain-end-width;
+            height: 100%;
+            margin-top: $baboon-height + $padding-top;
+        }
+    }
+
+    .baboon-container {
+        display: flex;
+        height: 100%;
+
+        .baboon {
+            flex: 1;
+            display: block;
+            padding: ($padding-top + $baboon-height) $mountain-end-width  $mountain-bottom-height $mountain-start-width;
+        }
+    }
+}
