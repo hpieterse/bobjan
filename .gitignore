@@ -35,6 +35,8 @@ speed-measure-plugin.json
 /.sass-cache
 /connect.lock
 /coverage
+/cypress/videos
+/cypress/screenshots
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log

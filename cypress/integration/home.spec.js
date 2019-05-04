@@ -53,7 +53,7 @@ context('Window', () => {
 
     const waitForAudio = () => {
       cy.wait(eightsNoteMs * 6);
-      cy.wait(100);// lag before playing audio
+      cy.wait(500);// lag before playing audio
     }
 
     cy.wait(eightsNoteMs);
