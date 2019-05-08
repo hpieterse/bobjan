@@ -23,7 +23,7 @@ install:
 script:
   - npm run lint
   # first run tests
-  - npm run test::cc
+  - npm run test:cc
   # send coveralls report
   - npm run test:coveralls
   # run e2e testing
