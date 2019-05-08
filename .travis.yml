@@ -25,4 +25,4 @@ script:
   - npm run test:coveralls
   - npm run cypress:ci
   # trigger production build on Netlify
-  - $(npm bin)/netlify deploy --prod;
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash $(npm bin)/netlify deploy --prod; fi'
