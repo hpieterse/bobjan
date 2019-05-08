@@ -22,7 +22,12 @@ install:
   - npm ci
 script:
   - npm run lint
-  - npm run test:coveralls
+  # first run tests
+  - npm run test:cc
+  # run e2e testing
   - npm run cypress:ci
-  # trigger production build on Netlify
-  - $(npm bin)/netlify deploy --prod;
+after_success:
+  # send coveralls report
+  - npm run test:coveralls
+  - # trigger production build on Netlify
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash $(npm bin)/netlify deploy --prod; fi'
