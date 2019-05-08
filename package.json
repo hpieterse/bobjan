@@ -7,7 +7,7 @@
     "start:background": "ng serve & $(npm bin)/wait-on -v http://localhost:4200",
     "build": "ng build --prod",
     "test": "jest",
-    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "test:coveralls": "cat ./coverage/lcov.info | $(npm bin)/coveralls",
     "test:watch": "jest --watch",
     "test:cc": "jest --coverage",
     "lint": "ng lint",
@@ -58,6 +58,8 @@
     ],
     "modulePathIgnorePatterns": [
       "<rootDir>/cypress/"
-    ]
+    ],
+    "coverageDirectory": "./coverage",
+    "coverageReporters": ["lcov"]
   }
 }
