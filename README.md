@@ -1,7 +1,6 @@
 # Bobjan
 [![Build Status](https://travis-ci.org/hpieterse/bobjan.svg?branch=master)](https://travis-ci.org/hpieterse/bobjan)
-[!Coverage Status](https://coveralls.io/repos/github/hpieterse/bobjan/badge.svg?branch=master)](https://coveralls.io/
-github/hpieterse/bobjan?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/hpieterse/bobjan/badge.svg?branch=master)](https://coveralls.io/github/hpieterse/bobjan?branch=master)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b1a96d7f-7b49-457e-83ee-4b20c50c8b26/deploy-status)](https://app.netlify.com/sites/handsaw-bobjan/deploys)
 
 This is a simple game of a baboon climbing a mountain. The project was generated with [Angular CLI](https://github.com/angular/angular-cli).
