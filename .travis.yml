@@ -24,3 +24,5 @@ script:
   - npm run lint
   - npm run test:coveralls
   - npm run cypress:ci
+  # trigger production build on Netlify
+  - $(npm bin)/netlify deploy --prod;
