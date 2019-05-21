@@ -352,6 +352,11 @@ describe('BaboonComponent', () => {
     testDanceMove2B();
 
     tick(eightNoteMs * 2);
+    testDanceMove2A();
+    tick(eightNoteMs * 2);
+    testDanceMove2B();
+
+    tick(eightNoteMs * 2);
     testDanceMove2();
 
     tick(eightNoteMs * 2);

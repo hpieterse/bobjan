@@ -105,7 +105,7 @@ export class BaboonComponent implements OnDestroy, OnInit {
       animationLength: this._eightNoteMs
     });
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       await this.sleepQuarterNote();
       await this.sleepQuarterNote();
       await this.animateJump({
