@@ -5,13 +5,14 @@ import { GamePosition } from '../models/game-position.enum';
 import { Renderer2, RendererFactory2 } from '@angular/core';
 
 describe('SoundServiceService', () => {
-  let gameStateServiceMock;
-  let subscription;
+  let gameStateServiceMock: any;
+  let subscription: any;
   let service: SoundService;
   let renderedMock: Renderer2;
+  let audioMocks: Array<HTMLAudioElement>;
 
   beforeEach((() => {
-
+    audioMocks = [];
     gameStateServiceMock = {
       subscribeToStateChanges: jest.fn(),
       changeGameState: jest.fn(),
@@ -41,7 +42,14 @@ describe('SoundServiceService', () => {
   }));
 
   beforeEach(() => {
+    for (let i = 0; i < 4; i++) {
+      const audio = {
+        play: jest.fn()
+      } as any;
+      (renderedMock.createElement as jest.Mock).mockReturnValueOnce(audio);
 
+      audioMocks.push(audio);
+    }
   });
 
   beforeEach(() => {
@@ -52,37 +60,26 @@ describe('SoundServiceService', () => {
     expect(service).toBeTruthy();
   });
   test.each([
-    [GamePosition.pos1, 'assets/theme_verse1.mp3'],
-    [GamePosition.pos2, 'assets/theme_chorus.mp3'],
-    [GamePosition.pos3, 'assets/theme_verse2.mp3'],
-    [GamePosition.pos4, 'assets/theme_chorus.mp3'],
-    [GamePosition.top, 'assets/theme_end.mp3'],
+    [0, GamePosition.pos1, 'assets/theme_verse1.mp3'],
+    [2, GamePosition.pos2, 'assets/theme_chorus.mp3'],
+    [1, GamePosition.pos3, 'assets/theme_verse2.mp3'],
+    [2, GamePosition.pos4, 'assets/theme_chorus.mp3'],
+    [3, GamePosition.top, 'assets/theme_end.mp3'],
   ])(
     'For %s should play %s',
-    (position, fileName) => {
+    (audioMockIndex: number, position: number, fileName: string) => {
       // arrange
-      const audio: HTMLAudioElement = {
-        play: jest.fn()
-      } as any;
-
-      (renderedMock.createElement as jest.Mock).mockReturnValueOnce(audio);
 
       // act
       gameStateServiceMock.subscribeToStateChanges.mock.calls[0][0]({ nextState: { position } });
-      audio.onended({} as any);
+      audioMocks[audioMockIndex].onended({} as any);
 
       // assert
-      expect(audio.src).toEqual(fileName);
+      expect(audioMocks[audioMockIndex].src).toEqual(fileName);
     },
   );
 
   it('should play file and finish when done', fakeAsync(() => {
-    const audio: HTMLAudioElement = {
-      play: jest.fn()
-    } as any;
-
-    (renderedMock.createElement as jest.Mock).mockReturnValueOnce(audio);
-
     // act
     let done = false;
     gameStateServiceMock.subscribeToStateChanges.mock.calls[0][0]({ nextState: { position: GamePosition.pos1 } }).then(() => {
@@ -90,10 +87,10 @@ describe('SoundServiceService', () => {
     });
 
     // assert
-    expect((audio.play as jest.Mock).mock.calls.length).toEqual(1);
+    expect((audioMocks[0].play as jest.Mock).mock.calls.length).toEqual(1);
     tick();
     expect(done).toBeFalsy();
-    audio.onended({} as any);
+    audioMocks[0].onended({} as any);
     tick();
     expect(done).toBeTruthy();
   }));

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "types": [
       "jest",
     ]
