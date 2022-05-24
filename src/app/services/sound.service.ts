@@ -52,7 +52,7 @@ export class SoundService implements OnDestroy {
   private async playSound(sound: Sounds): Promise<void> {
     return new Promise((o) => {
       const audio = this.sounds.get(sound);
-      audio.volume = 0.2;
+      audio.volume = 0.1;
       audio.play();
       audio.onended = () => {
         o();
